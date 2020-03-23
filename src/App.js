@@ -12,23 +12,31 @@ class App extends Component {
 
     this.state = {
       users: [],
-      searchFilter: ""
+      searchFilter: "",
     }
   }  
 
   componentDidMount() {
     fetch("https://reqres.in/api/users")
       .then(response => response.json())
-      .then(users => this.setState({users:users.data})) 
+      .then(users => this.setState({
+        users: users.data.map(user => ({
+          ...user, 
+          fullName: user.first_name + " " + user.last_name
+        }))
+      }))
   }
 
   changeHandler = e => (
-    this.setState({searchFilter:e.target.value})
+    this.setState({searchFilter: e.target.value})
   );
 
   render() {
     const {users, searchFilter} = this.state;
-    const filteredUsersFirstName = users.filter(user => user.first_name.toLowerCase().includes(searchFilter.toLowerCase()))
+    const filteredUsersFirstName = users.filter(user => {
+      return user.fullName.toLowerCase().includes(searchFilter.toLowerCase())
+    })
+    
 
     return (
       <div className="App">
@@ -37,8 +45,7 @@ class App extends Component {
           searchText="search user"
           changeHandler={this.changeHandler}
         /> 
-
-        <Cardlist users= {filteredUsersFirstName}/>
+        <Cardlist user={filteredUsersFirstName} />
       </div>
     );
   } 
