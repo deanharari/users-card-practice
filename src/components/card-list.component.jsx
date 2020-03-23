@@ -6,8 +6,8 @@ import "./card-list.style.css"
 
 export const Cardlist = props => (
   <div className="card-list">
-    {props.users.map(user => (
-      <Card key={users.id} user={user} />
+    {props.user.map(user => (
+      <Card key={user.id} user={user} />
     ))}
   </div>
 );

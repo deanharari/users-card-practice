@@ -33,7 +33,7 @@ class App extends Component {
 
   render() {
     const {users, searchFilter} = this.state;
-    const filteredUsersFirstName = users.filter(user => {
+    const filteredUser = users.filter(user => {
       return user.fullName.toLowerCase().includes(searchFilter.toLowerCase())
     })
     
@@ -45,7 +45,7 @@ class App extends Component {
           searchText="search user"
           changeHandler={this.changeHandler}
         /> 
-        <Cardlist user={filteredUsersFirstName} />
+        <Cardlist user={filteredUser} />
       </div>
     );
   } 
