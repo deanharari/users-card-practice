@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 
 import { Cardlist } from './components/card-list.component';
 
+import { SearchBox } from './components/search-box.component';
+
 import './App.css';
 
 class App extends Component {
@@ -10,6 +12,7 @@ class App extends Component {
 
     this.state = {
       users: [],
+      searchFilter: ""
     }
   }  
 
@@ -19,18 +22,22 @@ class App extends Component {
       .then(users => this.setState({users:users.data})) 
   }
 
-
+  changeHandler = e => (
+    this.setState({searchFilter:e.target.value})
+  );
 
   render() {
+    const {users, searchFilter} = this.state;
+    const filteredUsersFirstName = users.filter(user => user.first_name.toLowerCase().includes(searchFilter.toLowerCase()))
 
     return (
       <div className="App">
-        <input 
-          type="search"
-          placeholder="search user"
-          onChange={(e => this.setState({searchFilter:e.target.value}))}
+        <SearchBox
+          searchText="search user"
+          changeHandler={this.changeHandler}
         /> 
-        <Cardlist users= {this.state.users}/>
+
+        <Cardlist users= {filteredUsersFirstName}/>
       </div>
     );
   } 
