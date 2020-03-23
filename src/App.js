@@ -32,6 +32,7 @@ class App extends Component {
 
     return (
       <div className="App">
+        <h1 className="mainHeader"> Users Practice </h1>
         <SearchBox
           searchText="search user"
           changeHandler={this.changeHandler}
