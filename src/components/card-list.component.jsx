@@ -4,9 +4,9 @@ import { Card } from "./card.component"
 
 import "./card-list.style.css"
 
-export const Cardlist = props => (
+export const Cardlist = ({ user }) => (
   <div className="card-list">
-    {props.user.map(user => (
+    {user.map(user => (
       <Card key={user.id} user={user} />
     ))}
   </div>
